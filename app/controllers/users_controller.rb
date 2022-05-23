@@ -35,10 +35,15 @@ class UsersController < ApplicationController
 
   def login_user
     user = User.find_by(email: user_params[:email])
-    if user.authenticate(user_params[:password])
-      redirect_to "/users/#{user.id}"
+    if user
+      if user.authenticate(user_params[:password])
+        redirect_to "/users/#{user.id}"
+      else
+        flash[:notice] = "Incorrect login credentials"
+        redirect_to '/login'
+      end
     else
-      flash[:notice] = "Incorrect login credentials"
+      flash[:notice] = "User not found"
       redirect_to '/login'
     end
   end
