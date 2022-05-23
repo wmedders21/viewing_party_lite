@@ -4,6 +4,13 @@ RSpec.describe User, type: :model do
   describe 'validations' do
     it { should validate_presence_of (:name) }
     it { should validate_presence_of (:email) }
+    it { should validate_presence_of (:password_digest) }
+    it { should have_secure_password }
+
+    user = User.create!(name: 'Will', email: 'abc@email.com', password: '123qwe!!!zxc')
+    expect(user).to_not have_attribute(:password)
+    expect(user.password_digest).to_not eq('123qwe!!!zxc')
+
   end
 
   describe 'relationships' do
