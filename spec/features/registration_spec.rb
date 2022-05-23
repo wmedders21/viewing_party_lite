@@ -14,6 +14,8 @@ RSpec.describe 'registration page' do
 
     fill_in :name, with: "George"
     fill_in :email, with: "george@mail.com"
+    fill_in :password, with: "3245rfwr4"
+    fill_in :password_confirmation, with: "3245rfwr4"
     click_button "Create a New User"
 
     george = User.all[0]
