@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'a user dashboard' do
   it 'displays a header with the users name' do
-    user_1 = User.create!(name: 'Buggs', email: 'buggs@bunny.com')
-    user_2 = User.create!(name: 'Elmer', email: 'elmer@fudd.com')
+    user_1 = User.create!(name: 'Buggs', email: 'buggs@bunny.com', password: '345345')
+    user_2 = User.create!(name: 'Elmer', email: 'elmer@fudd.com', password: '345345')
 
     visit "/users/#{user_1.id}"
 
@@ -12,7 +12,7 @@ RSpec.describe 'a user dashboard' do
   end
 
   it 'has a Discover Movies button' do
-      user1 = User.create!(name: 'Will', email: 'abc@mail.com')
+      user1 = User.create!(name: 'Will', email: 'abc@mail.com', password: '345345')
 
       visit "/users/#{user1.id}"
       click_button "Discover Movies"
@@ -21,7 +21,7 @@ RSpec.describe 'a user dashboard' do
     end
 
   it 'has a section that lists viewing parties' do
-    user1 = User.create!(name: 'Will', email: 'abc@mail.com')
+    user1 = User.create!(name: 'Will', email: 'abc@mail.com', password: '345345')
 
     visit "/users/#{user1.id}"
 
@@ -31,10 +31,10 @@ RSpec.describe 'a user dashboard' do
   end
 
   it 'displays the viewing party that the user has been invited to with details', :vcr do
-    user_1 = User.create!(name: 'Will', email: '123@mail.com')
-    user_2 = User.create!(name: 'Charles', email: 'abc@mail.com')
-    user_3 = User.create!(name: 'Dylan', email: 'xyz@mail.com')
-    user_4 = User.create!(name: 'Samantha', email: 'sam@mail.com')
+    user_1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
+    user_2 = User.create!(name: 'Charles', email: 'abc@mail.com', password: '345345')
+    user_3 = User.create!(name: 'Dylan', email: 'xyz@mail.com', password: '345345')
+    user_4 = User.create!(name: 'Samantha', email: 'sam@mail.com', password: '345345')
 
     visit "/users/#{user_1.id}/movies/278/viewing-party/new"
     fill_in :duration, with: '142'

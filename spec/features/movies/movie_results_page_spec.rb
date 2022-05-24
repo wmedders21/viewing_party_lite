@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Movie results page' do
   describe 'As a user when I visit the Movie Results page top movies' do
     it 'displays the titles of the top rated movies as a link the movie details page', :vcr do
-      user1 = User.create!(name: 'Will', email: '123@mail.com')
-      user2 = User.create!(name: 'Craig', email: 'abc@mail.com')
+      user1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
+      user2 = User.create!(name: 'Craig', email: 'abc@mail.com', password: '345345')
 
       visit "/users/#{user1.id}/discover"
       click_button "Discover Top Rated Movies"
@@ -17,7 +17,7 @@ RSpec.describe 'Movie results page' do
     end
 
     it 'displays the vote average of the movie', :vcr do
-      user1 = User.create!(name: 'Will', email: '123@mail.com')
+      user1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
 
       visit "/users/#{user1.id}/discover"
       click_button "Discover Top Rated Movies"
@@ -29,8 +29,8 @@ RSpec.describe 'Movie results page' do
   end
   describe 'Search for title by name' do
     it 'returns search results for movie title', :vcr do
-      user1 = User.create!(name: 'Will', email: '123@mail.com')
-      user2 = User.create!(name: 'Craig', email: 'abc@mail.com')
+      user1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
+      user2 = User.create!(name: 'Craig', email: 'abc@mail.com', password: '345345')
 
       visit "/users/#{user1.id}/discover"
       fill_in :q, with: 'Castaway'

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'a users new party creation page' do
   it 'displays the name of the movie title', :vcr do
-    user_1 = User.create!(name: 'Will', email: '123@mail.com')
+    user_1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
 
     visit "/users/#{user_1.id}/movies/278/viewing-party/new"
 
@@ -10,7 +10,7 @@ RSpec.describe 'a users new party creation page' do
   end
 
   it 'has a form with fields for duration, day, and start time', :vcr do
-    user_1 = User.create!(name: 'Will', email: '123@mail.com')
+    user_1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
 
     visit "/users/#{user_1.id}/movies/278/viewing-party/new"
 
@@ -20,10 +20,10 @@ RSpec.describe 'a users new party creation page' do
   end
 
   it 'has checkboxes for all the registered users', :vcr do
-    user_1 = User.create!(name: 'Will', email: '123@mail.com')
-    user_2 = User.create!(name: 'Charles', email: 'abc@mail.com')
-    user_3 = User.create!(name: 'Dylan', email: 'xyz@mail.com')
-    user_4 = User.create!(name: 'Samantha', email: 'sam@mail.com')
+    user_1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
+    user_2 = User.create!(name: 'Charles', email: 'abc@mail.com', password: '345345')
+    user_3 = User.create!(name: 'Dylan', email: 'xyz@mail.com', password: '345345')
+    user_4 = User.create!(name: 'Samantha', email: 'sam@mail.com', password: '345345')
 
     visit "/users/#{user_1.id}/movies/278/viewing-party/new"
 
@@ -38,10 +38,10 @@ RSpec.describe 'a users new party creation page' do
   end
 
   it 'creates a new party', :vcr do
-    user_1 = User.create!(name: 'Will', email: '123@mail.com')
-    user_2 = User.create!(name: 'Charles', email: 'abc@mail.com')
-    user_3 = User.create!(name: 'Dylan', email: 'xyz@mail.com')
-    user_4 = User.create!(name: 'Samantha', email: 'sam@mail.com')
+    user_1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
+    user_2 = User.create!(name: 'Charles', email: 'abc@mail.com', password: '345345')
+    user_3 = User.create!(name: 'Dylan', email: 'xyz@mail.com', password: '345345')
+    user_4 = User.create!(name: 'Samantha', email: 'sam@mail.com', password: '345345')
 
     visit "/users/#{user_1.id}/movies/278/viewing-party/new"
     fill_in :duration, with: '142'
@@ -57,10 +57,10 @@ RSpec.describe 'a users new party creation page' do
   end
 
   it 'flash messages', :vcr do
-    user_1 = User.create!(name: 'Will', email: '123@mail.com')
-    user_2 = User.create!(name: 'Charles', email: 'abc@mail.com')
-    user_3 = User.create!(name: 'Dylan', email: 'xyz@mail.com')
-    user_4 = User.create!(name: 'Samantha', email: 'sam@mail.com')
+    user_1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
+    user_2 = User.create!(name: 'Charles', email: 'abc@mail.com', password: '345345')
+    user_3 = User.create!(name: 'Dylan', email: 'xyz@mail.com', password: '345345')
+    user_4 = User.create!(name: 'Samantha', email: 'sam@mail.com', password: '345345')
 
     visit "/users/#{user_1.id}/movies/278/viewing-party/new"
     fill_in :duration, with: '140'

@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Movie details page' do
   describe 'As a user when I visit the Movie details page' do
     it 'displays a button to create a viewing party and a button to return to the discover page', :vcr do
-      user1 = User.create!(name: 'Will', email: '123@mail.com')
-      user2 = User.create!(name: 'Craig', email: 'abc@mail.com')
+      user1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
+      user2 = User.create!(name: 'Craig', email: 'abc@mail.com', password: '345345')
 
       visit "/users/#{user1.id}/movies/278?user_id=#{user1.id}"
       click_button "Discover"
@@ -19,8 +19,8 @@ RSpec.describe 'Movie details page' do
     end
 
     it 'displays movie details', :vcr do
-      user1 = User.create!(name: 'Will', email: '123@mail.com')
-      user2 = User.create!(name: 'Craig', email: 'abc@mail.com')
+      user1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
+      user2 = User.create!(name: 'Craig', email: 'abc@mail.com', password: '345345')
 
       visit "/users/#{user1.id}/movies/278?user_id=#{user1.id}"
 
@@ -47,8 +47,8 @@ RSpec.describe 'Movie details page' do
     end
 
     it 'displays a count of total views', :vcr do
-      user1 = User.create!(name: 'Will', email: '123@mail.com')
-      user2 = User.create!(name: 'Craig', email: 'abc@mail.com')
+      user1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
+      user2 = User.create!(name: 'Craig', email: 'abc@mail.com', password: '345345')
 
       visit "/users/#{user1.id}/movies/278?user_id=#{user1.id}"
 

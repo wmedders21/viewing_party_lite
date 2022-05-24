@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'a user discover page' do
   it 'has a button to discover top rated movies', :vcr do
-    user_1 = User.create!(name: 'Buggs', email: 'buggs@bunny.com')
+    user_1 = User.create!(name: 'Buggs', email: 'buggs@bunny.com', password: '345345')
 
     visit "/users/#{user_1.id}/discover"
 # save_and_open_page
@@ -12,7 +12,7 @@ RSpec.describe 'a user discover page' do
   end
 
   it 'displays a text-field and sumbit button to search by movie title', :vcr do
-    user_1 = User.create!(name: 'Buggs', email: 'buggs@bunny.com')
+    user_1 = User.create!(name: 'Buggs', email: 'buggs@bunny.com', password: '345345')
 
     visit "/users/#{user_1.id}/discover"
 
