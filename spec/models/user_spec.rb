@@ -4,6 +4,10 @@ RSpec.describe User, type: :model do
   describe 'validations' do
     it { should validate_presence_of (:name) }
     it { should validate_presence_of (:email) }
+    it { should validate_uniqueness_of(:email)}
+    it { should validate_presence_of(:password_digest)}
+    it { should have_secure_password }
+
   end
 
   describe 'relationships' do
@@ -12,7 +16,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'class methods' do
-    it '#email_list' do
+    xit '#email_list' do
       user_1 = User.create!(name: 'Will', email: 'abc@mail.com')
       user_2 = User.create!(name: 'Craig', email: 'zyx@mail.com')
       user_3 = User.create!(name: 'Alicia', email: '321@mail.com')

@@ -13,7 +13,7 @@ RSpec.describe 'Landing Page' do
     expect(page).to have_button("Create a New User")
   end
 
-  it 'has a list of existing users with their names as links to their individual dashboard' do
+  xit 'has a list of existing users with their names as links to their individual dashboard' do
     user1 = User.create!(name: 'Will', email: 'abc@mail.com')
     user2 = User.create!(name: 'Craig', email: 'zyx@mail.com')
     user3 = User.create!(name: 'Alicia', email: '321@mail.com')
@@ -36,7 +36,7 @@ RSpec.describe 'Landing Page' do
     end
   end
 
-  it 'has a link to the landing page at the top of all pages' do
+  xit 'has a link to the landing page at the top of all pages' do
     user1 = User.create!(name: 'Will', email: 'abc@mail.com')
 
     visit '/'

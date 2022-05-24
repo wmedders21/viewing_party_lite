@@ -3,5 +3,9 @@
   <%= form.text_field :name %><br>
   <%= form.label :email %>
   <%= form.text_field :email %><br>
+  <%= form.label :password, 'Password:' %>
+  <%= form.password_field :password %><br>
+  <%= form.label :password_confirmation, 'Password Confirmation:' %>
+  <%= form.password_field :password_confirmation %><br>
   <%= form.submit "Create a New User" %>
 <% end %>

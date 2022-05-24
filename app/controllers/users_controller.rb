@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   def create
     new_user = User.new(user_params)
-    if new_user[:name] == "" || new_user[:email] == ""
+    if new_user[:name] == "" || new_user[:email] == "" || new_user[:password] != new_user[:password_confirmation]
       flash[:notice] = "Please fill out all fields."
       redirect_to '/register'
     elsif User.email_list.include?(new_user[:email])
@@ -36,6 +36,6 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.permit(:name, :email)
+    params.permit(:name, :email, :password, :password_confirmation)
   end
 end
