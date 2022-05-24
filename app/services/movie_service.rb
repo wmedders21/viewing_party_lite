@@ -1,5 +1,6 @@
 class MovieService
   def self.conn
+    # require "pry"; binding.pry
     Faraday.new('http://api.themoviedb.org/3/') do |faraday|
       faraday.params["api_key"] = ENV['movie_db_key']
     end
