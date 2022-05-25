@@ -12,7 +12,11 @@
   <body>
     <nav>
       <%= link_to "Home", '/' %>
-      <%= link_to "Login", '/login' %>
+      <% if session[:user_id] %>
+      <%= link_to "Logout", '/logout' %>
+      <% else %>
+        <%= link_to "Login", '/login' %>
+      <% end %>
 
     </nav>
     <% flash.each do |type, message| %>

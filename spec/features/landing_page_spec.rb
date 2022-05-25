@@ -34,7 +34,7 @@ RSpec.describe 'Landing Page' do
     fill_in :email, with: "abc@mail.com"
     fill_in :password, with: '24356243562'
     click_button "Login"
-    
+
     expect(page).to have_content("Home")
     visit "/dashboard"
     expect(page).to have_content("Home")
@@ -65,6 +65,23 @@ RSpec.describe 'Landing Page' do
     click_button "Login"
     expect(current_path).to eq("/login")
     expect(page).to have_content('Sorry, your credentials are bad')
+  end
+
+  it 'after logged in, create new user and login options are replaced by logout' do
+    User.create(name: 'Will', email: 'abc@mail.com', password: '24356243562')
+
+    visit '/'
+    click_link "Login"
+    expect(current_path).to eq('/login')
+    fill_in :email, with: "abc@mail.com"
+    fill_in :password, with: '24356243562'
+    click_button "Login"
+
+    visit '/'
+
+    expect(page).to have_link('Logout')
+    expect(page).to have_no_link('Login')
+    expect(page).to have_no_button('Create a New User')
   end
 
 end
