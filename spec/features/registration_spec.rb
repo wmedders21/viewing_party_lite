@@ -10,7 +10,10 @@ RSpec.describe 'registration page' do
   end
 
   it 'displays a user registration form' do
-    visit '/register'
+    visit '/'
+    click_button "Create a New User"
+
+    expect(current_path).to eq('/register')
 
     fill_in :name, with: "George"
     fill_in :email, with: "george@mail.com"
@@ -18,11 +21,13 @@ RSpec.describe 'registration page' do
     fill_in :password_confirmation, with: "test1"
     click_button "Create a New User"
 
-    george = User.all[0]
-    expect(current_path).to eq("/users/#{george.id}")
-    user = User.create(name: 'Meg', email: 'meg@test.com', password: 'password123', password_confirmation: 'password123')
-    expect(user).to_not have_attribute(:password)
-    expect(user.password_digest).to_not eq('password123')
+    expect(page).to have_content("Welcome, george@mail.com")
+
+    # george = User.all[0]
+    # expect(current_path).to eq("/users/#{george.id}")
+    # user = User.create(name: 'Meg', email: 'meg@test.com', password: 'password123', password_confirmation: 'password123')
+    # expect(user).to_not have_attribute(:password)
+    # expect(user.password_digest).to_not eq('password123')
   end
 
   describe 'flash messages' do

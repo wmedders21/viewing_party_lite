@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   def dashboard
+    require "pry"; binding.pry
     @user = User.find(params[:id])
     @parties = @user.parties
     @movies = @parties.map {|party| MovieFacade.single_movie(party.name)}
@@ -8,7 +9,7 @@ class UsersController < ApplicationController
 
   def create
     new_user = User.new(user_params)
-    if new_user[:name] == "" || new_user[:email] == "" || new_user[:password] != new_user[:password_confirmation]
+    if new_user[:name].empty? || new_user[:email].empty?
       flash[:notice] = "Please fill out all fields."
       redirect_to '/register'
     elsif User.email_list.include?(new_user[:email])
@@ -16,6 +17,7 @@ class UsersController < ApplicationController
       redirect_to '/register'
     else
       new_user.save
+      flash[:success] = "Welcome, #{new_user.email}"
       redirect_to "/users/#{new_user.id}"
     end
   end

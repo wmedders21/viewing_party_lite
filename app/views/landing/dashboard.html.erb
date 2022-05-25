@@ -1,7 +1,13 @@
 <h1 id="title"; style="text-align:center;">Viewing Party Lite</h1>
 <div style="text-align:center;">
   <%= button_to "Create a New User", '/register', method: :get, local: true %>
+
 </div>
+
+<h3> <div style="text-align:center;">
+  <%= link_to 'Log In', '/login', method: :get, local: true %></h3>
+</div>
+
 <div id="existing_users"; style="text-align:center;">
   <p>Existing Users: <br>
     <% @users.each do |user| %>
