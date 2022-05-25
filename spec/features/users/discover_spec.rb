@@ -1,24 +1,28 @@
 require 'rails_helper'
 
 RSpec.describe 'a user discover page' do
+  before :each do
+    User.create(name: 'Will', email: '123@mail.com', password: '345345')
+    visit '/login'
+    fill_in :email, with: '123@mail.com'
+    fill_in :password, with: '345345'
+    click_button 'Login'
+  end
   it 'has a button to discover top rated movies', :vcr do
-    user_1 = User.create!(name: 'Buggs', email: 'buggs@bunny.com', password: '345345')
+    visit "/dashboard/discover"
 
-    visit "/users/#{user_1.id}/discover"
-# save_and_open_page
     click_button "Discover Top Rated Movies"
-# require "pry"; binding.pry
-    expect(current_path).to eq("/users/#{user_1.id}/movies")
+
+    expect(current_path).to eq("/dashboard/movies")
   end
 
   it 'displays a text-field and sumbit button to search by movie title', :vcr do
-    user_1 = User.create!(name: 'Buggs', email: 'buggs@bunny.com', password: '345345')
 
-    visit "/users/#{user_1.id}/discover"
+    visit "/dashboard/discover"
 
     fill_in :q, with: 'castaway'
     click_button "Search"
 
-    expect(current_path).to eq("/users/#{user_1.id}/movies")
+    expect(current_path).to eq("/dashboard/movies")
   end
 end

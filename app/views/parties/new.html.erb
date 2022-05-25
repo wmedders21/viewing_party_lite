@@ -1,10 +1,10 @@
 <h1>Viewing Party Lite</h1>
 <h3>Create a Movie Party for <%= @movie.title %></h3>
 
-<p><%= button_to "Discover Page", "/users/#{@host.id}/discover" %></p>
+<p><%= button_to "Discover Page", "/dashboard/discover" %></p>
 <div id="party"; style="border:2px solid black; text-align:center">
   <h2>Viewing Party Details</h2>
-  <%= form_with url: "/users/#{@host.id}/movies/#{@movie.id}/viewing-party/new", local: true do |f| %>
+  <%= form_with url: "/dashboard/movies/#{@movie.id}/viewing-party/new", local: true do |f| %>
     <p>Movie Title: <%= f.label "#{@movie.title}" %></p>
     <%= f.hidden_field :name, value: "#{@movie.id}" %>
     <p>Duration of Party: <%= f.text_field :duration, value: @movie.runtime %></p>

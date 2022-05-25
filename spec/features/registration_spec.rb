@@ -20,7 +20,7 @@ RSpec.describe 'registration page' do
     click_button "Create a New User"
 
     george = User.all[0]
-    expect(current_path).to eq("/users/#{george.id}")
+    expect(current_path).to eq("/dashboard")
   end
 
   describe 'flash messages' do

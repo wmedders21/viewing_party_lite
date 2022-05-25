@@ -2,27 +2,32 @@ require 'rails_helper'
 
 RSpec.describe 'Movie details page' do
   describe 'As a user when I visit the Movie details page' do
-    it 'displays a button to create a viewing party and a button to return to the discover page', :vcr do
-      user1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
-      user2 = User.create!(name: 'Craig', email: 'abc@mail.com', password: '345345')
+    before :each do
+      User.create(name: 'Will', email: '123@mail.com', password: '345345')
+      visit '/login'
+      fill_in :email, with: '123@mail.com'
+      fill_in :password, with: '345345'
+      click_button 'Login'
+    end
 
-      visit "/users/#{user1.id}/movies/278?user_id=#{user1.id}"
+    it 'displays a button to create a viewing party and a button to return to the discover page', :vcr do
+
+      # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit "/dashboard/movies/278"
       click_button "Discover"
-      expect(current_path).to eq("/users/#{user1.id}/discover")
+      expect(current_path).to eq("/dashboard/discover")
       click_button "Discover Top Rated Movies"
       click_link "The Shawshank Redemption"
       click_button "Create a Viewing Party"
 
-      expect(current_path).to eq("/users/#{user1.id}/movies/278/viewing-party/new")
-      expect(current_path).to_not eq("/users/#{user2.id}/movies/278/viewing_party/new")
-      expect(current_path).to_not eq("/users/#{user1.id}/movies/52886/viewing_party/new")
+      expect(current_path).to eq("/dashboard/movies/278/viewing-party/new")
+      expect(current_path).to_not eq("/dashboard/movies/52886/viewing_party/new")
     end
 
     it 'displays movie details', :vcr do
-      user1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
-      user2 = User.create!(name: 'Craig', email: 'abc@mail.com', password: '345345')
 
-      visit "/users/#{user1.id}/movies/278?user_id=#{user1.id}"
+      visit "/dashboard/movies/278"
 
       summary = "Framed in the 1940s for the double murder of his wife and her lover, upstanding banker Andy Dufresne begins a new life at the Shawshank prison, where he puts his accounting skills to work for an amoral warden. During his long stretch in prison, Dufresne comes to be admired by the other inmates -- including an older prisoner named Red -- for his integrity and unquenchable sense of hope."
 
@@ -47,10 +52,8 @@ RSpec.describe 'Movie details page' do
     end
 
     it 'displays a count of total views', :vcr do
-      user1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
-      user2 = User.create!(name: 'Craig', email: 'abc@mail.com', password: '345345')
 
-      visit "/users/#{user1.id}/movies/278?user_id=#{user1.id}"
+      visit "/dashboard/movies/278"
 
       expect(page).to have_content("Review Count: 7")
 

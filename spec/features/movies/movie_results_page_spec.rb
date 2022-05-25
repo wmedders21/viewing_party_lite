@@ -2,24 +2,27 @@ require 'rails_helper'
 
 RSpec.describe 'Movie results page' do
   describe 'As a user when I visit the Movie Results page top movies' do
+    before :each do
+      User.create(name: 'Will', email: '123@mail.com', password: '345345')
+      visit '/login'
+      fill_in :email, with: '123@mail.com'
+      fill_in :password, with: '345345'
+      click_button 'Login'
+    end
     it 'displays the titles of the top rated movies as a link the movie details page', :vcr do
-      user1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
-      user2 = User.create!(name: 'Craig', email: 'abc@mail.com', password: '345345')
 
-      visit "/users/#{user1.id}/discover"
+      visit "/dashboard/discover"
       click_button "Discover Top Rated Movies"
       click_button "Discover"
       click_button "Discover Top Rated Movies"
       click_link "The Shawshank Redemption"
 
-      expect(current_path).to eq("/users/#{user1.id}/movies/278")
-      expect(current_path).to_not eq("/users/#{user2.id}/movies/278")
+      expect(current_path).to eq("/dashboard/movies/278")
     end
 
     it 'displays the vote average of the movie', :vcr do
-      user1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
 
-      visit "/users/#{user1.id}/discover"
+      visit "/dashboard/discover"
       click_button "Discover Top Rated Movies"
 
       within "#movie-278" do
@@ -28,11 +31,16 @@ RSpec.describe 'Movie results page' do
     end
   end
   describe 'Search for title by name' do
+    before :each do
+      User.create(name: 'Will', email: '123@mail.com', password: '345345')
+      visit '/login'
+      fill_in :email, with: '123@mail.com'
+      fill_in :password, with: '345345'
+      click_button 'Login'
+    end
     it 'returns search results for movie title', :vcr do
-      user1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
-      user2 = User.create!(name: 'Craig', email: 'abc@mail.com', password: '345345')
 
-      visit "/users/#{user1.id}/discover"
+      visit "/dashboard/discover"
       fill_in :q, with: 'Castaway'
       click_button "Search"
 
@@ -44,8 +52,7 @@ RSpec.describe 'Movie results page' do
         click_link "Castaway"
       end
 
-      expect(current_path).to eq("/users/#{user1.id}/movies/52886")
-      expect(current_path).to_not eq("/users/#{user2.id}/movies/52886")
+      expect(current_path).to eq("/dashboard/movies/52886")
     end
   end
 end

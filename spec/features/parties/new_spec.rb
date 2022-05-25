@@ -1,18 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe 'a users new party creation page' do
+  before :each do
+    User.create(name: 'Will', email: '123@mail.com', password: '345345')
+    visit '/login'
+    fill_in :email, with: '123@mail.com'
+    fill_in :password, with: '345345'
+    click_button 'Login'
+  end
   it 'displays the name of the movie title', :vcr do
-    user_1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
 
-    visit "/users/#{user_1.id}/movies/278/viewing-party/new"
+    visit "/dashboard/movies/278/viewing-party/new"
 
     expect(page).to have_content('The shawshank redemption')
   end
 
   it 'has a form with fields for duration, day, and start time', :vcr do
-    user_1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
 
-    visit "/users/#{user_1.id}/movies/278/viewing-party/new"
+    visit "/dashboard/movies/278/viewing-party/new"
 
     expect(page).to have_field(:duration)
     expect(page).to have_field(:date)
@@ -20,30 +25,28 @@ RSpec.describe 'a users new party creation page' do
   end
 
   it 'has checkboxes for all the registered users', :vcr do
-    user_1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
     user_2 = User.create!(name: 'Charles', email: 'abc@mail.com', password: '345345')
     user_3 = User.create!(name: 'Dylan', email: 'xyz@mail.com', password: '345345')
     user_4 = User.create!(name: 'Samantha', email: 'sam@mail.com', password: '345345')
 
-    visit "/users/#{user_1.id}/movies/278/viewing-party/new"
+    visit "/dashboard/movies/278/viewing-party/new"
 
     expect(page).to have_no_content('Will')
     expect(page).to have_content('Charles')
     expect(page).to have_content('Dylan')
     expect(page).to have_content('Samantha')
-    expect(page).to have_no_content("#{user_1.email}")
+    expect(page).to have_no_content("123@mail.com")
     expect(page).to have_content("#{user_2.email}")
     expect(page).to have_content("#{user_3.email}")
     expect(page).to have_content("#{user_4.email}")
   end
 
   it 'creates a new party', :vcr do
-    user_1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
     user_2 = User.create!(name: 'Charles', email: 'abc@mail.com', password: '345345')
     user_3 = User.create!(name: 'Dylan', email: 'xyz@mail.com', password: '345345')
     user_4 = User.create!(name: 'Samantha', email: 'sam@mail.com', password: '345345')
 
-    visit "/users/#{user_1.id}/movies/278/viewing-party/new"
+    visit "/dashboard/movies/278/viewing-party/new"
     fill_in :duration, with: '142'
     fill_in :date, with: Date.current
     fill_in :start_time, with: '00:54 PM'
@@ -53,23 +56,22 @@ RSpec.describe 'a users new party creation page' do
 
     click_button "Create Party"
 
-    expect(current_path).to eq("/users/#{user_1.id}")
+    expect(current_path).to eq("/dashboard")
   end
 
   it 'flash messages', :vcr do
-    user_1 = User.create!(name: 'Will', email: '123@mail.com', password: '345345')
     user_2 = User.create!(name: 'Charles', email: 'abc@mail.com', password: '345345')
     user_3 = User.create!(name: 'Dylan', email: 'xyz@mail.com', password: '345345')
     user_4 = User.create!(name: 'Samantha', email: 'sam@mail.com', password: '345345')
 
-    visit "/users/#{user_1.id}/movies/278/viewing-party/new"
+    visit "/dashboard/movies/278/viewing-party/new"
     fill_in :duration, with: '140'
     fill_in :date, with: Date.current
     fill_in :start_time, with: '00:54 PM'
 
     click_button "Create Party"
 
-    expect(current_path).to eq("/users/#{user_1.id}/movies/278/viewing-party/new")
+    expect(current_path).to eq("/dashboard/movies/278/viewing-party/new")
     expect(page).to have_content("Party can't be shorter than Movie's runtime.")
 
     fill_in :duration, with: '142'
@@ -77,7 +79,7 @@ RSpec.describe 'a users new party creation page' do
 
     click_button "Create Party"
 
-    expect(current_path).to eq("/users/#{user_1.id}/movies/278/viewing-party/new")
+    expect(current_path).to eq("/dashboard/movies/278/viewing-party/new")
     expect(page).to have_content("Please fill out all fields")
 
     fill_in :duration, with: '142'
@@ -85,7 +87,7 @@ RSpec.describe 'a users new party creation page' do
 
     click_button "Create Party"
 
-    expect(current_path).to eq("/users/#{user_1.id}/movies/278/viewing-party/new")
+    expect(current_path).to eq("/dashboard/movies/278/viewing-party/new")
     expect(page).to have_content("Please fill out all fields")
   end
 end
