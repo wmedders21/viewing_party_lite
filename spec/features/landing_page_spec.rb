@@ -82,6 +82,13 @@ RSpec.describe 'Landing Page' do
     expect(page).to have_link('Logout')
     expect(page).to have_no_link('Login')
     expect(page).to have_no_button('Create a New User')
+
+    click_link 'Logout'
+    expect(current_path).to eq('/')
+    expect(page).to have_no_link('Logout')
+    expect(page).to have_link('Login')
+    expect(page).to have_button('Create a New User')
+
   end
 
 end
