@@ -60,5 +60,13 @@ RSpec.describe 'Movie details page' do
       expect(page).to have_content("Make way for the best film ever made people. **Make way.**")
       expect(page).to have_content("tmdb73913433")
     end
+
+    it 'as a visitor to a movie show page, if i try to create a viewling party, im rejected', :vcr do
+      visit '/dashboard/movies/278'
+      click_button "Create a Viewing Party"
+
+      expect(current_path).to eq('/dashboard/movies/278')
+      expect(page).to have_content('Must be logged in to create a viewing party')
+    end
   end
 end

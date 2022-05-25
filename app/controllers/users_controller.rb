@@ -36,26 +36,6 @@ class UsersController < ApplicationController
     @single_movie_reviews = MovieFacade.single_movie_reviews(params[:id])
   end
 
-  # def login_form
-  # end
-
-  # def login_user
-  #   user = User.find_by(email: user_params[:email])
-  #   if user
-  #     if user.authenticate(user_params[:password])
-  #       session[:user_id] = user.id
-  #       binding.pry
-  #       redirect_to "/dashboard"
-  #     else
-  #       flash[:notice] = "Incorrect login credentials"
-  #       redirect_to '/login'
-  #     end
-  #   else
-  #     flash[:notice] = "User not found"
-  #     redirect_to '/login'
-  #   end
-  # end
-
   private
   def user_params
     params.permit(:name, :email, :password, :password_confirmation)
