@@ -13,15 +13,15 @@ RSpec.describe 'Landing Page' do
     expect(page).to have_button("Create a New User")
   end
 
-  it 'has a list of existing users with their emails listed' do
+  it 'as a visitor, has no list of existing users with their emails listed' do
     user1 = User.create(name: 'Will', email: 'abc@mail.com', password: '24356243562')
     user2 = User.create(name: 'Craig', email: 'zyx@mail.com', password: '24356243562')
     user3 = User.create(name: 'Alicia', email: '321@mail.com', password: '24356243562')
     visit '/'
     within "#existing_users" do
-      expect(page).to have_content('abc@mail.com')
-      expect(page).to have_content('zyx@mail.com')
-      expect(page).to have_content('321@mail.com')
+      expect(page).to have_no_content('abc@mail.com')
+      expect(page).to have_no_content('zyx@mail.com')
+      expect(page).to have_no_content('321@mail.com')
     end
   end
 
