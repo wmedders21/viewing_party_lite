@@ -21,7 +21,28 @@ RSpec.describe 'Landing Page' do
 
     expect(page).to have_no_content('abc@mail.com')
     expect(page).to have_no_content('zyx@mail.com')
-    expect(page).to have_no_content('321@mail.com')  
+    expect(page).to have_no_content('321@mail.com')
+  end
+
+  it 'as a registered user, has a list of existing users with their emails listed' do
+
+    User.create(name: 'Will', email: 'abc@mail.com', password: '24356243562')
+    User.create(name: 'Craig', email: 'zyx@mail.com', password: '24356243562')
+    User.create(name: 'Alicia', email: '321@mail.com', password: '24356243562')
+
+    visit '/'
+
+    click_link "Login"
+
+    fill_in :email, with: "abc@mail.com"
+    fill_in :password, with: '24356243562'
+    click_button "Login"
+
+    visit '/'
+
+    expect(page).to have_content('abc@mail.com')
+    expect(page).to have_content('zyx@mail.com')
+    expect(page).to have_content('321@mail.com')
   end
 
   it 'has a link to the landing page at the top of all pages' do
