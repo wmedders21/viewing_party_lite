@@ -108,7 +108,12 @@ RSpec.describe 'Landing Page' do
     expect(page).to have_no_link('Logout')
     expect(page).to have_link('Login')
     expect(page).to have_button('Create a New User')
-
   end
 
+  it 'as a visitor to the landing page, if i try to visit dashboard, im rejected' do
+    visit '/'
+    visit '/dashboard'
+    expect(current_path).to eq('/')
+    expect(page).to have_content('Must be logged in to access dashboard')
+  end
 end

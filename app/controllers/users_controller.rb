@@ -1,9 +1,14 @@
 class UsersController < ApplicationController
   def dashboard
-    @user = User.find(session[:user_id])
-    @parties = @user.parties
-    @movies = @parties.map {|party| MovieFacade.single_movie(party.name)}
-    @images = @parties.map {|party| MovieFacade.single_movie_image(party.name)}
+    if session[:user_id]
+      @user = User.find(session[:user_id])
+      @parties = @user.parties
+      @movies = @parties.map {|party| MovieFacade.single_movie(party.name)}
+      @images = @parties.map {|party| MovieFacade.single_movie_image(party.name)}
+    else
+      flash[:message] = 'Must be logged in to access dashboard'
+      redirect_to '/'
+    end
   end
 
   def create
