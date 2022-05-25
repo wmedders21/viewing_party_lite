@@ -1,14 +1,14 @@
 <h1 id="title"; style="text-align:center;">Viewing Party Lite</h1>
 <% if session[:user_id] %>
+  <div id="existing_users"; style="text-align:center;">
+    <p>Existing Users: <br>
+      <% @users.each do |user| %>
+      <%= user.email %><br>
+      <% end %>
+    </p>
+  </div>
 <% else %>
   <div style="text-align:center;">
     <%= button_to "Create a New User", '/register', method: :get, local: true %>
   </div>
-  <% end %>
-<div id="existing_users"; style="text-align:center;">
-  <p>Existing Users: <br>
-    <% @users.each do |user| %>
-      <%= user.email %><br>
-    <% end %>
-  </p>
-</div>
+<% end %>

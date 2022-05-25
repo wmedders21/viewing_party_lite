@@ -18,11 +18,10 @@ RSpec.describe 'Landing Page' do
     user2 = User.create(name: 'Craig', email: 'zyx@mail.com', password: '24356243562')
     user3 = User.create(name: 'Alicia', email: '321@mail.com', password: '24356243562')
     visit '/'
-    within "#existing_users" do
-      expect(page).to have_no_content('abc@mail.com')
-      expect(page).to have_no_content('zyx@mail.com')
-      expect(page).to have_no_content('321@mail.com')
-    end
+
+    expect(page).to have_no_content('abc@mail.com')
+    expect(page).to have_no_content('zyx@mail.com')
+    expect(page).to have_no_content('321@mail.com')  
   end
 
   it 'has a link to the landing page at the top of all pages' do
